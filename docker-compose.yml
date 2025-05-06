@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  taskhub.api:
+    container_name: taskhub.api
+    build:
+      context: ./backend/TaskHub.WebApi/TaskHub.WebApi
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"   
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings:DefaultConnection=Server=taskhub.db;Database=taskhub;User=sa;Password=root;
+    depends_on:
+      - taskhub.db
+  taskhub.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: taskhub.db
+    environment:
+      - SA_PASSWORD=root
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+
+volumes:
+  sqlserverdata:
