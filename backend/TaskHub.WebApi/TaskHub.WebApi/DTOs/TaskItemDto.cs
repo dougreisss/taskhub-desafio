@@ -1,6 +1,6 @@
 ﻿namespace TaskHub.WebApi.DTOs
 {
-    public class TaskItemDTO
+    public class TaskItemDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

@@ -8,7 +8,7 @@ namespace TaskHub.WebApi.Mappings
     {
         public TaskItemProfile()
         {
-            CreateMap<TaskItem, TaskItemDTO>().ReverseMap();
+            CreateMap<TaskItem, TaskItemDto>().ReverseMap();
         }
     }
 }

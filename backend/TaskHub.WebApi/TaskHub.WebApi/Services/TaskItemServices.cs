@@ -1,14 +1,51 @@
-﻿using TaskHub.WebApi.Repository.Interfaces;
+﻿using AutoMapper;
+using TaskHub.WebApi.DTOs;
+using TaskHub.WebApi.Models;
+using TaskHub.WebApi.Repository.Interfaces;
 using TaskHub.WebApi.Services.Interfaces;
 
 namespace TaskHub.WebApi.Services
 {
     public class TaskItemServices : ITaskItemServices
     {
+        private readonly IMapper _mapper;
         private readonly ITaskItemRepository _taskItemRepository;
-        public TaskItemServices(ITaskItemRepository taskItemRepository)
+        public TaskItemServices(IMapper mapper, ITaskItemRepository taskItemRepository)
         {
+            _mapper = mapper;
             _taskItemRepository = taskItemRepository;
+        }
+
+        public async Task<List<TaskItemDto>> GetAll()
+        {
+            var tasks = await _taskItemRepository.GetAll();
+
+            return _mapper.Map<List<TaskItemDto>>(tasks);
+        }
+
+        public async Task<TaskItemDto> GetById(int id)
+        {
+            var task = await _taskItemRepository.GetById(id);
+
+            return _mapper.Map<TaskItemDto>(task);
+        }
+
+        public async Task Create(TaskItemDto taskItemDto)
+        {
+            var task = _mapper.Map<TaskItem>(taskItemDto);  
+            await _taskItemRepository.Create(task);
+        }
+
+        public async Task Delete(TaskItemDto taskItemDto)
+        {
+            var task = _mapper.Map<TaskItem>(taskItemDto);
+            await _taskItemRepository.Delete(task); 
+        }
+
+        public async Task Update(TaskItemDto taskItemDto)
+        {
+            var task = _mapper.Map<TaskItem>(taskItemDto);
+            await _taskItemRepository.Update(task);
         }
     }
 }

@@ -9,12 +9,10 @@ namespace TaskHub.WebApi.Controllers
     [ApiController]
     public class TaskController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly ITaskItemServices _taskItemServices;
 
-        public TaskController(IMapper mapper, ITaskItemServices taskItemServices)
+        public TaskController(ITaskItemServices taskItemServices)
         {
-            _mapper = mapper;
             _taskItemServices = taskItemServices;
         }
 
