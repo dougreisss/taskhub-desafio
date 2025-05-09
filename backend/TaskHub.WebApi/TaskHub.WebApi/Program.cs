@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskHub.WebApi.Context;
+using TaskHub.WebApi.Repository;
+using TaskHub.WebApi.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 var app = builder.Build();
 
