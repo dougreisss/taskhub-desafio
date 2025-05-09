@@ -5,10 +5,10 @@ using TaskHub.WebApi.Repository.Interfaces;
 
 namespace TaskHub.WebApi.Repository
 {
-    public class TaskRepository : ITaskRepository
+    public class TaskItemRepository : ITaskItemRepository
     {
         private readonly ApplicationDbContext _context;
-        public TaskRepository(ApplicationDbContext context)
+        public TaskItemRepository(ApplicationDbContext context)
         {
             _context = context;
         }

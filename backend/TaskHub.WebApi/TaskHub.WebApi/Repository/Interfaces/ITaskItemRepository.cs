@@ -2,7 +2,7 @@
 
 namespace TaskHub.WebApi.Repository.Interfaces
 {
-    public interface ITaskRepository
+    public interface ITaskItemRepository
     {
         Task<List<TaskItem>> GetAll();
         Task<TaskItem> GetById(int id);

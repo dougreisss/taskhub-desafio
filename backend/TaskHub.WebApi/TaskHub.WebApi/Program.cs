@@ -1,21 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using TaskHub.WebApi.Context;
+using TaskHub.WebApi.Mappings;
 using TaskHub.WebApi.Repository;
 using TaskHub.WebApi.Repository.Interfaces;
+using TaskHub.WebApi.Services;
+using TaskHub.WebApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddAutoMapper(typeof(TaskItemProfile));
+
+builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddScoped<ITaskItemServices, TaskItemServices>();
 
 var app = builder.Build();
 
