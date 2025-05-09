@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskHub.WebApi.Context;
 using TaskHub.WebApi.Mappings;
@@ -5,6 +6,7 @@ using TaskHub.WebApi.Repository;
 using TaskHub.WebApi.Repository.Interfaces;
 using TaskHub.WebApi.Services;
 using TaskHub.WebApi.Services.Interfaces;
+using TaskHub.WebApi.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,29 @@ builder.Services.AddAutoMapper(typeof(TaskItemProfile));
 
 builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
 builder.Services.AddScoped<ITaskItemServices, TaskItemServices>();
+
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+            .Where(e => e.Value?.Errors.Count > 0)
+            .ToDictionary(
+                e => e.Key,
+                e => e.Value?.Errors.Select(er => er.ErrorMessage).ToArray()
+            );
+
+        var response = new ApiResponseDto<Dictionary<string, string[]>>
+        {
+            StatusCode = 400,
+            Message = "Dados inválidos",
+            Data = errors 
+        };
+
+        return new BadRequestObjectResult(response);
+    };
+});
+
 
 var app = builder.Build();
 
