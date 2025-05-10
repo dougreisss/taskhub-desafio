@@ -7,6 +7,7 @@ using TaskHub.WebApi.Repository.Interfaces;
 using TaskHub.WebApi.Services;
 using TaskHub.WebApi.Services.Interfaces;
 using TaskHub.WebApi.DTOs;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,12 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
