@@ -1,4 +1,5 @@
-﻿using TaskHub.WebApi.DTOs;
+﻿using System.Threading.Tasks;
+using TaskHub.WebApi.DTOs;
 
 namespace TaskHub.WebApi.Services.Interfaces
 {
@@ -6,8 +7,8 @@ namespace TaskHub.WebApi.Services.Interfaces
     {
         Task<List<TaskItemDto>> GetAll();
         Task<TaskItemDto> GetById(int id);
-        Task Create(TaskItemDto taskItemDto);
-        Task Update(TaskItemDto taskItemDto);
+        Task Create(CreateTaskItemDto createTaskItemDto);
+        Task Update(UpdateTaskItemDto updateTaskItemDto);
         Task Delete(TaskItemDto taskItemDto);
     }
 }

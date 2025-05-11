@@ -30,9 +30,9 @@ namespace TaskHub.WebApi.Services
             return _mapper.Map<TaskItemDto>(task);
         }
 
-        public async Task Create(TaskItemDto taskItemDto)
+        public async Task Create(CreateTaskItemDto createTaskItemDto)
         {
-            var task = _mapper.Map<TaskItem>(taskItemDto);  
+            var task = _mapper.Map<TaskItem>(createTaskItemDto);  
             await _taskItemRepository.Create(task);
         }
 
@@ -42,9 +42,17 @@ namespace TaskHub.WebApi.Services
             await _taskItemRepository.Delete(task); 
         }
 
-        public async Task Update(TaskItemDto taskItemDto)
+        public async Task Update(UpdateTaskItemDto updateTaskItemDto)
         {
-            var task = _mapper.Map<TaskItem>(taskItemDto);
+            var task = await _taskItemRepository.GetById(updateTaskItemDto.Id);
+
+            if (task == null)
+            {
+                throw new Exception("Task item not found");
+            }
+
+            _mapper.Map(updateTaskItemDto, task);
+
             await _taskItemRepository.Update(task);
         }
     }

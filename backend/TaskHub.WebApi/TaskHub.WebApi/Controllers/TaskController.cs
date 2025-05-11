@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskHub.WebApi.DTOs;
+using TaskHub.WebApi.Models;
 using TaskHub.WebApi.Services.Interfaces;
 
 namespace TaskHub.WebApi.Controllers
@@ -74,13 +75,16 @@ namespace TaskHub.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ApiResponseDto<TaskItemDto>>> Create(TaskItemDto taskItemDto)
+        public async Task<ActionResult<ApiResponseDto<TaskItemDto>>> Create(CreateTaskItemDto taskItemDto)
         {
             try
             {
+                // TODO
+                // validar se status existe 
+
                 await _taskItemServices.Create(taskItemDto);
 
-                return Ok(new ApiResponseDto<TaskItemDto>
+                return Ok(new ApiResponseDto<CreateTaskItemDto>
                 {
                     StatusCode = StatusCodes.Status200OK,
                     Message = "Task item created successfully",
@@ -94,17 +98,20 @@ namespace TaskHub.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ApiResponseDto<TaskItemDto>>> Update(TaskItemDto taskItemDto)
+        public async Task<ActionResult<ApiResponseDto<TaskItemDto>>> Update(UpdateTaskItemDto updateTaskItemDto)
         {
             try
             {
-                await _taskItemServices.Update(taskItemDto);
+                // TODO 
+                // validar se status existe 
 
-                return Ok(new ApiResponseDto<TaskItemDto>
+                await _taskItemServices.Update(updateTaskItemDto);
+
+                return Ok(new ApiResponseDto<UpdateTaskItemDto>
                 {
                     StatusCode = StatusCodes.Status200OK,
                     Message = "Task item updated successfully",
-                    Data = taskItemDto
+                    Data = updateTaskItemDto
                 });
             }
             catch (Exception ex)
@@ -113,11 +120,22 @@ namespace TaskHub.WebApi.Controllers
             }
         }
 
-        [HttpDelete]    
-        public async Task<ActionResult<ApiResponseDto<TaskItemDto>>> Delete(TaskItemDto taskItemDto)
+        [HttpDelete("{id}")]    
+        public async Task<ActionResult<ApiResponseDto<TaskItemDto>>> Delete(int id)
         {
             try
             {
+                TaskItemDto taskItemDto = await _taskItemServices.GetById(id);
+
+                if (taskItemDto == null)
+                {
+                    return NotFound(new ApiResponseDto<TaskItemDto>
+                    {
+                        StatusCode = StatusCodes.Status404NotFound,
+                        Message = "Task item Not Found"
+                    });
+                }
+
                 await _taskItemServices.Delete(taskItemDto);
 
                 return Ok(new ApiResponseDto<TaskItemDto>

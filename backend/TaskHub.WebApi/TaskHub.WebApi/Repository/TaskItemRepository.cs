@@ -15,12 +15,12 @@ namespace TaskHub.WebApi.Repository
 
         public async Task<List<TaskItem>> GetAll()
         {
-            return await _context.TaskItem.ToListAsync();
+            return await _context.TaskItem.Include( x => x.Status).ToListAsync();
         }
 
         public async Task<TaskItem> GetById(int id)
         {
-            return await _context.TaskItem.FindAsync(id);
+            return await _context.TaskItem.Include(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task Create(TaskItem taskItem)
