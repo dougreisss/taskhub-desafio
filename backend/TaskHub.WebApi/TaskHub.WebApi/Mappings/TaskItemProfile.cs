@@ -15,8 +15,6 @@ namespace TaskHub.WebApi.Mappings
                     Status = src.Status.Status
                 })).ReverseMap();
 
-            CreateMap<Models.TaskStatus, TaskStatusDto>().ReverseMap();
-
             CreateMap<CreateTaskItemDto, TaskItem>()
              .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow))
              .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => src.StatusId));

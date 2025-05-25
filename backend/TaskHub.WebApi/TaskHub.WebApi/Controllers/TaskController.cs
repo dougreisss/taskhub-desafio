@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using TaskHub.WebApi.DTOs;
 using TaskHub.WebApi.Models;
 using TaskHub.WebApi.Services.Interfaces;
@@ -7,7 +8,7 @@ namespace TaskHub.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskController : ControllerBase
+    public class TaskController : BaseController
     {
         private readonly ITaskItemServices _taskItemServices;
 
@@ -25,23 +26,14 @@ namespace TaskHub.WebApi.Controllers
 
                 if (tasks == null) 
                 {
-                    return NotFound(new ApiResponseDto<List<TaskItemDto>>
-                    {
-                        StatusCode = StatusCodes.Status404NotFound,
-                        Message = "Tasks Item Not Found"
-                    });
+                    return ReturnNotFound<List<TaskItemDto>>("Tasks Items Not Found");
                 }
 
-                return Ok(new ApiResponseDto<List<TaskItemDto>>
-                {
-                    StatusCode = StatusCodes.Status200OK,
-                    Message = "Success",
-                    Data = tasks
-                });
+                return ReturnOk(tasks);
             }
             catch (Exception ex)
             {
-                return ReturnInternalServerError(ex);
+                return ReturnInternalServerError<TaskItemDto>(ex);
             }
         }
 
@@ -54,23 +46,14 @@ namespace TaskHub.WebApi.Controllers
 
                 if (task == null)
                 {
-                    return NotFound(new ApiResponseDto<TaskItemDto>
-                    {
-                        StatusCode = StatusCodes.Status404NotFound,
-                        Message = "Task item Not Found"
-                    });
+                    return ReturnNotFound<TaskItemDto>("Task Item Not Found");
                 }
 
-                return Ok(new ApiResponseDto<TaskItemDto>
-                {
-                    StatusCode = StatusCodes.Status200OK,   
-                    Message = "Success",
-                    Data = task
-                });
+                return ReturnOk(task);
             }
             catch (Exception ex)
             {
-                return ReturnInternalServerError(ex);
+                return ReturnInternalServerError<TaskItemDto>(ex);
             }
         }
 
@@ -84,16 +67,11 @@ namespace TaskHub.WebApi.Controllers
 
                 await _taskItemServices.Create(taskItemDto);
 
-                return Ok(new ApiResponseDto<CreateTaskItemDto>
-                {
-                    StatusCode = StatusCodes.Status200OK,
-                    Message = "Task item created successfully",
-                    Data = taskItemDto
-                });
+                return ReturnOk(taskItemDto, "Task item created successfully");
             }
             catch (Exception ex)
             {
-                return ReturnInternalServerError(ex);
+                return ReturnInternalServerError<CreateTaskItemDto>(ex);
             }
         }
 
@@ -107,16 +85,11 @@ namespace TaskHub.WebApi.Controllers
 
                 await _taskItemServices.Update(updateTaskItemDto);
 
-                return Ok(new ApiResponseDto<UpdateTaskItemDto>
-                {
-                    StatusCode = StatusCodes.Status200OK,
-                    Message = "Task item updated successfully",
-                    Data = updateTaskItemDto
-                });
+                return ReturnOk(updateTaskItemDto, "Task item updated successfully");
             }
             catch (Exception ex)
             {
-                return ReturnInternalServerError(ex);
+                return ReturnInternalServerError<UpdateTaskItemDto>(ex);
             }
         }
 
@@ -127,26 +100,13 @@ namespace TaskHub.WebApi.Controllers
             {
                 await _taskItemServices.Delete(id);
 
-                return Ok(new ApiResponseDto<TaskItemDto>
-                {
-                    StatusCode = StatusCodes.Status200OK,
-                    Message = "Task item deleted successfully"
-                });
+                return ReturnOk<TaskItemDto>(null, message: "Task item deleted successfully");
+
             }
             catch (Exception ex)
             {
-                return ReturnInternalServerError(ex);
+                return ReturnInternalServerError<TaskItemDto>(ex);
             }
-        }
-
-        private ObjectResult ReturnInternalServerError(Exception ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseDto<TaskItemDto>
-            {
-                StatusCode = StatusCodes.Status500InternalServerError,
-                Message = "Internal Server Error",
-                Exception = ex.Message
-            });
         }
     }
 }
