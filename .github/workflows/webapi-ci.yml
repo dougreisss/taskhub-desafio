@@ -1,0 +1,28 @@
+name: .NET 9 CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout do código
+      uses: actions/checkout@v3
+
+    - name: 🧰 Instalar o .NET 9
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.100-preview.*' 
+
+    - name: 📦 Restaurar dependências
+      run: dotnet restore
+
+    - name: 🛠️ Buildar o projeto
+      run: dotnet build --no-restore --configuration Release
+
+    - name: ✅ Rodar testes unitários
+      run: dotnet test --no-build --configuration Release --logger trx
