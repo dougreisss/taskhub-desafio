@@ -18,10 +18,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+// mapper
 builder.Services.AddAutoMapper(typeof(TaskItemProfile));
+builder.Services.AddAutoMapper(typeof(TaskStatusProfile));
 
+// repository
 builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddScoped<ITaskStatusRepository, TaskStatusRepository>();
+
+// services
 builder.Services.AddScoped<ITaskItemServices, TaskItemServices>();
+builder.Services.AddScoped<ITaskStatusServices, TaskStatusServices>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -37,7 +44,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         var response = new ApiResponseDto<Dictionary<string, string[]>>
         {
             StatusCode = 400,
-            Message = "Dados inválidos",
+            Message = "Invalid Data",
             Data = errors 
         };
 
