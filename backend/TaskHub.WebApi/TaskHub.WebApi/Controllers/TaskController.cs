@@ -125,18 +125,7 @@ namespace TaskHub.WebApi.Controllers
         {
             try
             {
-                TaskItemDto taskItemDto = await _taskItemServices.GetById(id);
-
-                if (taskItemDto == null)
-                {
-                    return NotFound(new ApiResponseDto<TaskItemDto>
-                    {
-                        StatusCode = StatusCodes.Status404NotFound,
-                        Message = "Task item Not Found"
-                    });
-                }
-
-                await _taskItemServices.Delete(taskItemDto);
+                await _taskItemServices.Delete(id);
 
                 return Ok(new ApiResponseDto<TaskItemDto>
                 {

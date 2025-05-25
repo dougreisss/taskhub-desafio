@@ -9,6 +9,6 @@ namespace TaskHub.WebApi.Services.Interfaces
         Task<TaskItemDto> GetById(int id);
         Task Create(CreateTaskItemDto createTaskItemDto);
         Task Update(UpdateTaskItemDto updateTaskItemDto);
-        Task Delete(TaskItemDto taskItemDto);
+        Task Delete(int id);
     }
 }
