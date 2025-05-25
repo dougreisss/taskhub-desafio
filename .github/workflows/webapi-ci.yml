@@ -22,7 +22,7 @@ jobs:
       run: dotnet restore ./backend/TaskHub.WebApi/TaskHub.WebApi/TaskHub.WebApi.csproj
 
     - name: 🛠️ Buildar o projeto
-      run: dotnet build -./backend/TaskHub.WebApi/TaskHub.WebApi/TaskHub.WebApi.csproj --configuration Release
+      run: dotnet build ./backend/TaskHub.WebApi/TaskHub.WebApi/TaskHub.WebApi.csproj --configuration Release
 
     - name: ✅ Rodar testes unitários
       run: dotnet test ./backend/TaskHub.WebApi/TaskHub.Test/TaskHub.Test.csproj --configuration Release --logger trx
