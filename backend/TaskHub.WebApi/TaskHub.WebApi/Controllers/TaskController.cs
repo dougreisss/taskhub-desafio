@@ -11,10 +11,12 @@ namespace TaskHub.WebApi.Controllers
     public class TaskController : BaseController
     {
         private readonly ITaskItemServices _taskItemServices;
+        private readonly ITaskStatusServices _taskStatusServices;
 
-        public TaskController(ITaskItemServices taskItemServices)
+        public TaskController(ITaskItemServices taskItemServices, ITaskStatusServices taskStatusServices)
         {
             _taskItemServices = taskItemServices;
+            _taskStatusServices = taskStatusServices;
         }
 
         [HttpGet]
@@ -26,7 +28,7 @@ namespace TaskHub.WebApi.Controllers
 
                 if (tasks == null) 
                 {
-                    return ReturnNotFound<List<TaskItemDto>>("Tasks Items Not Found");
+                    return ReturnNotFound<List<TaskItemDto>>("Tasks items not Found");
                 }
 
                 return ReturnOk(tasks);
@@ -46,7 +48,7 @@ namespace TaskHub.WebApi.Controllers
 
                 if (task == null)
                 {
-                    return ReturnNotFound<TaskItemDto>("Task Item Not Found");
+                    return ReturnNotFound<TaskItemDto>("Task item not Found");
                 }
 
                 return ReturnOk(task);
@@ -62,8 +64,12 @@ namespace TaskHub.WebApi.Controllers
         {
             try
             {
-                // TODO
-                // validar se status existe 
+                var taskStatus = await _taskStatusServices.GetById(taskItemDto.StatusId);
+
+                if (taskStatus == null)
+                {
+                    return ReturnNotFound<TaskStatusDto>("Task status not found");
+                }
 
                 await _taskItemServices.Create(taskItemDto);
 
@@ -80,8 +86,12 @@ namespace TaskHub.WebApi.Controllers
         {
             try
             {
-                // TODO 
-                // validar se status existe 
+                var taskStatus = await _taskStatusServices.GetById(updateTaskItemDto.StatusId);
+
+                if (taskStatus == null)
+                {
+                    return ReturnNotFound<TaskStatusDto>("Task status not found");
+                }
 
                 await _taskItemServices.Update(updateTaskItemDto);
 
