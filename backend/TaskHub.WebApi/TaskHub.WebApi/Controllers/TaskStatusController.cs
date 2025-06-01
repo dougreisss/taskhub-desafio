@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskHub.WebApi.DTOs;
 using TaskHub.WebApi.Services.Interfaces;
@@ -7,6 +8,7 @@ namespace TaskHub.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TaskStatusController : BaseController
     {
         private readonly ITaskStatusServices _taskStatusServices;

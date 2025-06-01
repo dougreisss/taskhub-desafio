@@ -2,7 +2,6 @@
 using Moq;
 using TaskHub.WebApi.Repository.Interfaces;
 using TaskHub.WebApi.Services;
-using TaskHub.WebApi.Models;
 using TaskHub.WebApi.DTOs;
 
 namespace TaskHub.Test

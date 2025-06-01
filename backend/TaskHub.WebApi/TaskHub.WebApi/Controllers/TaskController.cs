@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskHub.WebApi.DTOs;
 using TaskHub.WebApi.Models;
@@ -8,6 +9,7 @@ namespace TaskHub.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TaskController : BaseController
     {
         private readonly ITaskItemServices _taskItemServices;

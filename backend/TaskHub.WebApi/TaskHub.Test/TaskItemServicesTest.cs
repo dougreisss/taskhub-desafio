@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.VisualBasic;
 using Moq;
 using TaskHub.WebApi.DTOs;
 using TaskHub.WebApi.Models;
 using TaskHub.WebApi.Repository.Interfaces;
 using TaskHub.WebApi.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace TaskHub.Test
 {
