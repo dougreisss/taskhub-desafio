@@ -6,7 +6,7 @@ namespace TaskHub.WebApi.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Status { get; set; }
+        public required string Status { get; set; }
         public ICollection<TaskItem> Tasks { get; set; }
     }
 }

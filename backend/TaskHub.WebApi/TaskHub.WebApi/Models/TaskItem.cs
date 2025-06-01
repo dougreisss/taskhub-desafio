@@ -10,8 +10,8 @@ namespace TaskHub.WebApi.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(100)]    
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public required string Title { get; set; }
+        public required string Description { get; set; }
         public int StatusId { get; set; }
         [ForeignKey("StatusId")]
         public TaskStatus Status { get; set; }
