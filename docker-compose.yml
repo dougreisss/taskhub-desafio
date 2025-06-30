@@ -1,6 +1,19 @@
 version: '3.9'
 
 services:
+  taskhub.web:
+    container_name: taskhub.web
+    build:
+      context: ./frontend/TaskHub.Web
+      dockerfile: Dockerfile
+    ports: 
+      - "4200:4200"
+    volumes:
+       - ./frontend/TaskHub.Web:/app
+       - /app/node_modules
+    depends_on: 
+      - taskhub.api
+    command: npm run start
   taskhub.api:
     container_name: taskhub.api
     build:
