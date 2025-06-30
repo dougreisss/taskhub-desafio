@@ -20,9 +20,12 @@ jobs:
 
     - name: 📦 Install dependencies
       run: npm install
+      working-directory: ./frontend/TaskHub.Web
 
     - name: 🛠️ Build the application
       run: npm run build --if-present
+      working-directory: ./frontend/TaskHub.Web
 
     - name: ✅ Run tests
       run: npm test -- --watch=false --bail --no-progress --reporters=default --reporters=jest-junit
+      working-directory: ./frontend/TaskHub.Web
