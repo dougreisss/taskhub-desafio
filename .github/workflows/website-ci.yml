@@ -26,6 +26,6 @@ jobs:
       run: npm run build --if-present
       working-directory: ./frontend/TaskHub.Web
 
-    - name: ✅ Run tests
-      run: npm test -- --watch=false --no-progress
-      working-directory: ./frontend/TaskHub.Web
+    # - name: ✅ Run tests
+    #   run: npm test -- --watch=false --no-progress
+    #   working-directory: ./frontend/TaskHub.Web

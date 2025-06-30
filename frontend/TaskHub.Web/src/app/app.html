@@ -1,1 +1,16 @@
-<router-outlet />
+<div class="flex h-screen">
+  <aside class="w-64 bg-gray-800 text-white p-4">
+    <h1 class="text-xl font-bold mb-6">Menu</h1>
+    <ul class="space-y-4">
+      <li>
+        <a routerLink="task" class="hover:text-gray-300">Task Manager</a>
+      </li>
+    </ul>
+  </aside>
+
+  <main class="flex-1 bg-gray-100 p-6 overflow-y-auto">
+    <router-outlet />
+  </main>
+</div>
+
+
