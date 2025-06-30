@@ -27,5 +27,5 @@ jobs:
       working-directory: ./frontend/TaskHub.Web
 
     - name: ✅ Run tests
-      run: npm test -- --watch=false --bail --no-progress --reporters=default --reporters=jest-junit
+      run: npm test -- --watch=false --no-progress
       working-directory: ./frontend/TaskHub.Web
