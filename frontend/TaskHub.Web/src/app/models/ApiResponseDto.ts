@@ -1,6 +1,6 @@
 export interface ApiResponseDto<T> {
-    StatusCode: number;
-    Message: string;
-    Exception: string;
-    Data: T;
+    statusCode: number;
+    message: string;
+    exception: string;
+    data: T;
 }

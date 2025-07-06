@@ -1,7 +1,7 @@
 export interface UpdateTaskItemDto {
-    Id: number;
-    Title: string;
-    Description: string;
-    StatudId: number;
-    DueDate: Date;
+    id: number;
+    title: string;
+    description: string;
+    statudId: number;
+    dueDate: Date;
 }

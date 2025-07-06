@@ -1,10 +1,10 @@
 import { TaskStatusDto } from "./TaskStatusDto";
 
 export interface TaskItemDto {
-    Id: number;
-    Title: string;
-    Description: string;
-    Status: TaskStatusDto;
-    CreatedAt: Date;
-    DueDate: Date;
+    id: number;
+    title: string;
+    description: string;
+    status: TaskStatusDto;
+    createdAt: Date;
+    dueDate: Date;
 }

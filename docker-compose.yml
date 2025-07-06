@@ -6,27 +6,31 @@ services:
     build:
       context: ./frontend/TaskHub.Web
       dockerfile: Dockerfile
-    ports: 
+    ports:
       - "4200:4200"
     volumes:
-       - ./frontend/TaskHub.Web:/app
-       - /app/node_modules
-    depends_on: 
+      - ./frontend/TaskHub.Web:/app
+      - /app/node_modules
+    depends_on:
       - taskhub.api
     command: npm run start
+    networks:
+      - taskhub-net
   taskhub.api:
     container_name: taskhub.api
     build:
       context: ./backend/TaskHub.WebApi/
       dockerfile: TaskHub.WebApi/Dockerfile
     ports:
-      - "8080:80"   
+      - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings:DefaultConnection=Server=taskhub.db;Database=taskhub;User=sa;Password=root@1234;Encrypt=False;
     depends_on:
       - taskhub.db
+    networks:
+      - taskhub-net
   taskhub.db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: taskhub.db
@@ -37,7 +41,8 @@ services:
       - "1433:1433"
     volumes:
       - sqlserverdata:/var/opt/mssql
-
+    networks:
+      - taskhub-net
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -64,3 +69,8 @@ services:
 volumes:
   sqlserverdata:
   grafana-storage:
+
+
+networks:
+  taskhub-net:
+    driver: bridge

@@ -1,4 +1,4 @@
 export interface TaskStatusDto {
-    Id: number;
-    Status: string;
+    id: number;
+    status: string;
 }

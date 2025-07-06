@@ -1,6 +1,6 @@
 export interface CreateTaskItemDto {
-    Title: string;
-    Description: string;
-    StatusId: number;
-    DueDate: Date;
+    title: string;
+    description: string;
+    statusId: number;
+    dueDate: Date;
 }

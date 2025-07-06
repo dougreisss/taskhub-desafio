@@ -8,18 +8,18 @@
     class="w-full p-3 bg-gray-200 rounded-xl mb-4 shadow-sm cursor-pointer" />
 
 <div class="space-y-4">
+
+    @for(task of tasks(); track task.id) {
     <div class="flex items-center bg-white rounded-xl p-3 shadow-sm">
         <div class="flex items-center gap-3">
-            <input type="checkbox"
-                class="cursor-pointer w-5 h-5 rounded-xl border-gray-300 focus:ring-2 focus:ring-red-400" />
-            <span>Book a hotel room</span>
+            <label class="inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="hidden peer" />
+                <span
+                    class="w-5 h-5 inline-block rounded-sm border border-gray-300 bg-white peer-checked:bg-blue-400 peer-checked:border-blue-400 transition"></span>
+            </label>
+            <span>{{task.title}}</span>
         </div>
     </div>
-    <div class="flex items-center bg-white rounded-xl p-3 shadow-sm">
-        <div class="flex items-center gap-3">
-            <input type="checkbox"
-                class="cursor-pointer w-5 h-5 rounded-xl border-gray-300 focus:ring-2 focus:ring-red-400" />
-            <span>Book a hotel room</span>
-        </div>
-    </div>
+    }
+
 </div>
