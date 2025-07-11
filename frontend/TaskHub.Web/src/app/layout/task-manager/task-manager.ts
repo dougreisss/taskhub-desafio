@@ -37,4 +37,12 @@ export class TaskManager implements OnInit {
     }
   }
 
+  deleteTask(id: number) {
+    this.taskService.delete(id).subscribe((resposnse: ApiResponseDto<TaskItemDto>) => {
+      if (resposnse.statusCode == 200) {
+        this.tasks.update(tasks => tasks.filter(task => task.id !== id));
+      }
+    });
+  }
+
 }
