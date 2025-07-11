@@ -31,4 +31,10 @@ export class TaskManager implements OnInit {
 
   }
 
+  insertTask(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      // todo
+    }
+  }
+
 }
