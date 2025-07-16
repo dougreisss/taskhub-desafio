@@ -1,20 +1,13 @@
 <div class="flex h-screen bg-gray-100">
-  <!-- Sidebar -->
-  <aside class="w-64 h-230 bg-white text-black p-4 rounded-xl m-3 shadow-lg">
-    <h1 class="text-xl font-bold mb-6">Menu</h1>
-    <ul class="space-y-4">
-      <li>
-        <a routerLink="task" class="hover:text-gray-300">Task Manager</a>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- Conteúdo principal -->
+  <app-menu></app-menu>
+  <!-- Main content -->
   <main class="flex-1 h-230 bg-gray-100 p-6 overflow-y-auto relative rounded-xl mt-3 mr-3 shadow-lg">
-    
-    <!-- Gradiente decorativo no topo -->
-    <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-blue-100 to-transparent pointer-events-none rounded-t-xl z-0"></div>
-  
+
+    <!-- Gradient on top -->
+    <div
+      class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-blue-100 to-transparent pointer-events-none rounded-t-xl z-0">
+    </div>
+
     <router-outlet />
   </main>
 </div>
