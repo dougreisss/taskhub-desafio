@@ -77,8 +77,11 @@ export class TaskManager implements OnInit {
   }
 
   openDialog(): void {
+
+    this.createTaskItemDto().title = this.titleInput();
+
     const dialogRef = this.dialog.open(CreateTask, {
-      data: { title: this.titleInput() },
+      data: this.createTaskItemDto(),
       width: '2000px'
     });
 
