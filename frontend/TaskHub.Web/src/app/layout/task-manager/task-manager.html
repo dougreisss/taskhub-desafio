@@ -4,12 +4,12 @@
     </h1>
 </div>
 
-<input type="text" placeholder="Write a new task"
+<input type="text" matInput [(ngModel)]="titleInput" placeholder="Write a new task"
     class="w-full p-3 bg-gray-200 rounded-xl mb-4 shadow-sm cursor-pointer" (keyup)="insertTask($event)" />
 
 <div class="space-y-4">
 
-    @for(task of tasks(); track task.id) {
+    @for(task of taskItemDto(); track task.id) {
     <div class="flex items-center bg-white rounded-xl p-3 shadow-sm justify-between">
         <div class="flex items-center gap-3">
             <span>{{task.title}} - {{task.dueDate | date: 'dd/MM/yyyy'}} - {{task.status.status}}</span>

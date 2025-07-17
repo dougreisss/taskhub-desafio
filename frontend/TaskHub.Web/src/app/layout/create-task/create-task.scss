@@ -1,0 +1,9 @@
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // espaçamento entre campos (opcional)
+}
+
+mat-form-field {
+    width: 100%;
+}
