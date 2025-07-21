@@ -4,24 +4,13 @@ import { TaskItemDto } from '../../models/TaskItemDto';
 import { ApiResponseDto } from '../../models/ApiResponseDto';
 import { CommonModule } from '@angular/common';
 import { CreateTask } from '../create-task/create-task';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { CreateTaskItemDto } from '../../models/CreateTaskItemDto';
 
 @Component({
   selector: 'app-task-manager',
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [CommonModule, FormsModule],
   standalone: true,
   templateUrl: './task-manager.html',
   styleUrl: './task-manager.scss'

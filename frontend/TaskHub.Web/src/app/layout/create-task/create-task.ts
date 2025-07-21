@@ -13,6 +13,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CreateTaskItemDto } from '../../models/CreateTaskItemDto';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-task',
@@ -26,15 +27,23 @@ import { CreateTaskItemDto } from '../../models/CreateTaskItemDto';
     MatDialogActions,
     MatDialogClose
   ],
+  providers: [DatePipe],
   templateUrl: './create-task.html',
   styleUrl: './create-task.scss'
 })
 
 export class CreateTask {
 
+
+  constructor(private datePipe: DatePipe) {
+  }
+
   readonly dialogRef = inject(MatDialogRef<CreateTask>);
   readonly data = inject<CreateTaskItemDto>(MAT_DIALOG_DATA);
 
+  get formattedDate(): string | null {
+    return this.datePipe.transform(this.data.dueDate, 'yyyy-MM-dd');
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }

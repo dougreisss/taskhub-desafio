@@ -18,11 +18,11 @@
 
     <mat-form-field appearance="fill" class="full-width">
         <mat-label>Due Date</mat-label>
-        <input matInput [(ngModel)]=data.dueDate />
+        <input type="date" matInput [(ngModel)]="formattedDate" />
     </mat-form-field>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button matButton [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    <button matButton [mat-dialog-close]=" data" cdkFocusInitial>Ok</button>
     <button matButton (click)="onNoClick()">No</button>
 </mat-dialog-actions>
