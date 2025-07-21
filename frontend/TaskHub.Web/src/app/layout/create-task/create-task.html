@@ -11,9 +11,18 @@
         <input matInput [(ngModel)]=data.description />
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <!-- <mat-form-field appearance="fill" class="full-width">
         <mat-label>Status</mat-label>
         <input matInput [(ngModel)]=data.statusId />
+    </mat-form-field> -->
+
+    <mat-form-field class="full-width">
+        <mat-label>Status</mat-label>
+        <mat-select>
+            @for (status of taskStatusDto(); track status.id) {
+            <mat-option [value]="status.id">{{status.status}}</mat-option>
+            }
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">

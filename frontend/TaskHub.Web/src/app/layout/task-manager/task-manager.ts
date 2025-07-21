@@ -1,6 +1,5 @@
 import { Component, OnInit, signal, inject, model } from '@angular/core';
 import { TaskServices } from '../../services/task-services';
-import { StatusServices } from '../../services/status-services';
 import { TaskItemDto } from '../../models/TaskItemDto';
 import { ApiResponseDto } from '../../models/ApiResponseDto';
 import { CommonModule } from '@angular/common';
@@ -8,10 +7,7 @@ import { CreateTask } from '../create-task/create-task';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { CreateTaskItemDto } from '../../models/CreateTaskItemDto';
-import { response } from 'express';
-import { TaskStatusDto } from '../../models/TaskStatusDto';
 import { HttpStatusCode } from '@angular/common/http'
-import { sign } from 'crypto';
 
 @Component({
   selector: 'app-task-manager',
@@ -25,22 +21,18 @@ export class TaskManager implements OnInit {
   readonly dialog = inject(MatDialog);
 
   public taskItemDto = signal<TaskItemDto[]>([]);
-  public taskStatusDto = signal<TaskStatusDto[]>([]);
 
   public createTaskItemDto = signal<CreateTaskItemDto>({ title: '', description: '', statusId: 0, dueDate: new Date() });
 
   readonly titleInput = model('')
 
   constructor(
-    private taskService: TaskServices,
-    private statusServices: StatusServices
+    private taskService: TaskServices
   ) { }
 
   ngOnInit(): void {
 
     this.getAllTasks();
-
-    this.getAllStatus();
 
   }
 
@@ -88,18 +80,6 @@ export class TaskManager implements OnInit {
       if (response.statusCode == HttpStatusCode.Ok) {
         if (response.data != null) {
           this.taskItemDto.set(response.data as TaskItemDto[]);
-        }
-      }
-      // todo error msg 
-    });
-  }
-
-  getAllStatus(): void {
-    this.statusServices.getAll().subscribe((response: ApiResponseDto<TaskStatusDto[]>) => {
-
-      if (response.statusCode == HttpStatusCode.Ok) {
-        if (response.data != null) {
-          this.taskStatusDto.set(response.data as TaskStatusDto[]);
         }
       }
       // todo error msg 
