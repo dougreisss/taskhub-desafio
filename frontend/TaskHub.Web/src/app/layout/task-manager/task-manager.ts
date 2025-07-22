@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { CreateTaskItemDto } from '../../models/CreateTaskItemDto';
 import { HttpStatusCode } from '@angular/common/http'
+import { UpdateTaskItemDto } from '../../models/UpdateTaskItemDto';
 
 @Component({
   selector: 'app-task-manager',
@@ -36,6 +37,17 @@ export class TaskManager implements OnInit {
 
   }
 
+  getAllTasks(): void {
+    this.taskService.getAll().subscribe((response: ApiResponseDto<TaskItemDto[]>) => {
+      if (response.statusCode == HttpStatusCode.Ok) {
+        if (response.data != null) {
+          this.taskItemDto.set(response.data as TaskItemDto[]);
+        }
+      }
+      // todo error msg 
+    });
+  }
+
   insertTask(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       if (this.titleInput() != "") {
@@ -44,20 +56,30 @@ export class TaskManager implements OnInit {
     }
   }
 
-  deleteTask(id: number): void {
-    this.taskService.delete(id).subscribe((resposnse: ApiResponseDto<TaskItemDto>) => {
-      if (resposnse.statusCode == 200) {
-        this.taskItemDto.update(tasksItemDto => tasksItemDto.filter(task => task.id !== id));
+  createTask(createTask: CreateTaskItemDto) {
+    this.taskService.create(createTask).subscribe((response: ApiResponseDto<TaskItemDto>) => {
+      if (response.statusCode == HttpStatusCode.Ok) {
+        this.getAllTasks();
+      }
+      // todo error msg 
+    });
+  }
+
+  updateTask(updateTask: UpdateTaskItemDto) {
+    this.taskService.update(updateTask).subscribe((response: ApiResponseDto<TaskItemDto>) => {
+      if (response.statusCode == HttpStatusCode.Ok) {
+        this.getAllTasks();
       }
     });
   }
 
-  createTask() {
-    // todo
-  }
-
-  updateTask() {
-    // todo
+  deleteTask(id: number): void {
+    this.taskService.delete(id).subscribe((response: ApiResponseDto<TaskItemDto>) => {
+      if (response.statusCode == HttpStatusCode.Ok) {
+        this.taskItemDto.update(tasksItemDto => tasksItemDto.filter(task => task.id !== id));
+      }
+      // todo error msg 
+    });
   }
 
   openDialog(): void {
@@ -70,19 +92,8 @@ export class TaskManager implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        console.log(result);
+        this.createTask(result as CreateTaskItemDto);
       }
-    });
-  }
-
-  getAllTasks(): void {
-    this.taskService.getAll().subscribe((response: ApiResponseDto<TaskItemDto[]>) => {
-      if (response.statusCode == HttpStatusCode.Ok) {
-        if (response.data != null) {
-          this.taskItemDto.set(response.data as TaskItemDto[]);
-        }
-      }
-      // todo error msg 
     });
   }
 

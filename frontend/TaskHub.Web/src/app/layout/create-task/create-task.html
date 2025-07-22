@@ -1,24 +1,22 @@
 <h2 mat-dialog-title>Create a new task</h2>
+<form [formGroup]="form" action="">
+
+</form>
 <mat-dialog-content class="dialog-content">
 
     <mat-form-field appearance="fill" class="full-width">
         <mat-label>Title</mat-label>
-        <input matInput [(ngModel)]=data.title />
+        <input matInput [(ngModel)]=data.title required />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="full-width">
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]=data.description />
+        <input matInput [(ngModel)]=data.description required />
     </mat-form-field>
-
-    <!-- <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Status</mat-label>
-        <input matInput [(ngModel)]=data.statusId />
-    </mat-form-field> -->
 
     <mat-form-field class="full-width">
         <mat-label>Status</mat-label>
-        <mat-select>
+        <mat-select required>
             @for (status of taskStatusDto(); track status.id) {
             <mat-option [value]="status.id">{{status.status}}</mat-option>
             }
@@ -27,7 +25,7 @@
 
     <mat-form-field appearance="fill" class="full-width">
         <mat-label>Due Date</mat-label>
-        <input type="date" matInput [(ngModel)]="formattedDate" />
+        <input type="date" matInput [(ngModel)]="formattedDate" required />
     </mat-form-field>
 
 </mat-dialog-content>
