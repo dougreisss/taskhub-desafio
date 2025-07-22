@@ -41,6 +41,7 @@ import { ApiResponseDto } from '../../models/ApiResponseDto';
 export class CreateTask implements OnInit {
 
   public taskStatusDto = signal<TaskStatusDto[]>([]);
+  public statusSelected: number = 0;
 
   constructor(
     private datePipe: DatePipe,

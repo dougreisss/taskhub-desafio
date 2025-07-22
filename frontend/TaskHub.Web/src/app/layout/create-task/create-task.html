@@ -13,7 +13,7 @@
 
     <mat-form-field class="full-width">
         <mat-label>Status</mat-label>
-        <mat-select required>
+        <mat-select required [(value)]="data.statusId">
             @for (status of taskStatusDto(); track status.id) {
             <mat-option [value]="status.id">{{status.status}}</mat-option>
             }
