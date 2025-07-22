@@ -56,16 +56,21 @@ export class TaskManager implements OnInit {
     }
   }
 
-  createTask(createTask: CreateTaskItemDto) {
+  editTask(id: number): void {
+
+  }
+
+  createTask(createTask: CreateTaskItemDto): void {
     this.taskService.create(createTask).subscribe((response: ApiResponseDto<TaskItemDto>) => {
       if (response.statusCode == HttpStatusCode.Ok) {
         this.getAllTasks();
+        this.createTaskItemDto.set({ title: '', description: '', statusId: 0, dueDate: new Date() });
       }
       // todo error msg 
     });
   }
 
-  updateTask(updateTask: UpdateTaskItemDto) {
+  updateTask(updateTask: UpdateTaskItemDto): void {
     this.taskService.update(updateTask).subscribe((response: ApiResponseDto<TaskItemDto>) => {
       if (response.statusCode == HttpStatusCode.Ok) {
         this.getAllTasks();

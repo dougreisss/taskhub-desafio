@@ -12,11 +12,12 @@
     @for(task of taskItemDto(); track task.id) {
     <div class="flex items-center bg-white rounded-xl p-3 shadow-sm justify-between">
         <div class="flex items-center gap-3">
-            <span>{{task.title}} - {{task.dueDate | date: 'dd/MM/yyyy'}} - {{task.status.status}}</span>
+            <span>{{task.title}} - {{task.description}} - {{task.dueDate | date: 'dd/MM/yyyy'}} -
+                {{task.status.status}}</span>
         </div>
         <div class="flex gap-3">
 
-            <button type="button" class="cursor-pointer">
+            <button type="button" class="cursor-pointer" (click)="editTask(task.id)">
                 <svg xmlns=" http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6 hover:text-gray-600">
                     <path stroke-linecap="round" stroke-linejoin="round"
